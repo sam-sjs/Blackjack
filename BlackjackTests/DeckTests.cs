@@ -1,6 +1,5 @@
 using Blackjack;
 using Xunit;
-using Xunit.Sdk;
 
 namespace BlackjackTests
 {
@@ -33,6 +32,7 @@ namespace BlackjackTests
             Assert.NotEqual(expected, actual);
         }
 
+        [Fact]
         public void GivenDraw_WhenInputIsNull_ThenShouldReturnFirstCardInDeck()
         {
             Deck newDeck = new Deck();
