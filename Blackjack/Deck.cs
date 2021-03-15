@@ -8,24 +8,24 @@ namespace Blackjack
         private int _nextDraw;
         public Card[] StandardDeck { get; private set; } = 
         {
-            new("2", "HEARTS"), new("3", "HEARTS"), new("4", "HEARTS"),
-            new("5", "HEARTS"), new("6", "HEARTS"), new("7", "HEARTS"),
-            new("8", "HEARTS"), new("9", "HEARTS"), new("10", "HEARTS"),
-            new("J", "HEARTS"), new("Q", "HEARTS"), new("K", "HEARTS"),
-            new("A", "HEARTS"), new("2", "SPADES"), new("3", "SPADES"),
-            new("4", "SPADES"), new("5", "SPADES"), new("6", "SPADES"),
-            new("7", "SPADES"), new("8", "SPADES"), new("9", "SPADES"),
-            new("10", "SPADES"), new("J", "SPADES"), new("Q", "SPADES"),
-            new("K", "SPADES"), new("A", "SPADES"), new("2", "DIAMONDS"),
-            new("3", "DIAMONDS"), new("4", "DIAMONDS"), new("5", "DIAMONDS"),
-            new("6", "DIAMONDS"), new("7", "DIAMONDS"), new("8", "DIAMONDS"),
-            new("9", "DIAMONDS"), new("10", "DIAMONDS"), new("J", "DIAMONDS"),
-            new("Q", "DIAMONDS"), new("K", "DIAMONDS"), new("A", "DIAMONDS"),
-            new("2", "CLUBS"), new("3", "CLUBS"), new("4", "CLUBS"),
-            new("5", "CLUBS"), new("6", "CLUBS"), new("7", "CLUBS"),
-            new("8", "CLUBS"), new("9", "CLUBS"), new("10", "CLUBS"),
-            new("J", "CLUBS"), new("Q", "CLUBS"), new("K", "CLUBS"),
-            new("A", "CLUBS")
+            new(Value.Two, Suit.Hearts), new(Value.Three, Suit.Hearts), new(Value.Four, Suit.Hearts),
+            new(Value.Five, Suit.Hearts), new(Value.Six, Suit.Hearts), new(Value.Seven, Suit.Hearts),
+            new(Value.Eight, Suit.Hearts), new(Value.Nine, Suit.Hearts), new(Value.Ten, Suit.Hearts),
+            new(Value.Jack, Suit.Hearts), new(Value.Queen, Suit.Hearts), new(Value.King, Suit.Hearts),
+            new(Value.Ace, Suit.Hearts), new(Value.Two, Suit.Spades), new(Value.Three, Suit.Spades),
+            new(Value.Four, Suit.Spades), new(Value.Five, Suit.Spades), new(Value.Six, Suit.Spades),
+            new(Value.Seven, Suit.Spades), new(Value.Eight, Suit.Spades), new(Value.Nine, Suit.Spades),
+            new(Value.Ten, Suit.Spades), new(Value.Jack, Suit.Spades), new(Value.Queen, Suit.Spades),
+            new(Value.King, Suit.Spades), new(Value.Ace, Suit.Spades), new(Value.Two, Suit.Diamonds),
+            new(Value.Three, Suit.Diamonds), new(Value.Four, Suit.Diamonds), new(Value.Five, Suit.Diamonds),
+            new(Value.Six, Suit.Diamonds), new(Value.Seven, Suit.Diamonds), new(Value.Eight, Suit.Diamonds),
+            new(Value.Nine, Suit.Diamonds), new(Value.Ten, Suit.Diamonds), new(Value.Jack, Suit.Diamonds),
+            new(Value.Queen, Suit.Diamonds), new(Value.King, Suit.Diamonds), new(Value.Ace, Suit.Diamonds),
+            new(Value.Two, Suit.Clubs), new(Value.Three, Suit.Clubs), new(Value.Four, Suit.Clubs),
+            new(Value.Five, Suit.Clubs), new(Value.Six, Suit.Clubs), new(Value.Seven, Suit.Clubs),
+            new(Value.Eight, Suit.Clubs), new(Value.Nine, Suit.Clubs), new(Value.Ten, Suit.Clubs),
+            new(Value.Jack, Suit.Clubs), new(Value.Queen, Suit.Clubs), new(Value.King, Suit.Clubs),
+            new(Value.Ace, Suit.Clubs)
         };
 
         public void Shuffle()

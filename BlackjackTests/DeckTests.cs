@@ -10,38 +10,34 @@ namespace BlackjackTests
         {
             int expected = 52;
             
-            Deck actual = new Deck();
+            Deck deck = new Deck();
+            int actual = deck.StandardDeck.Length;
 
-            Assert.Equal(expected, actual.StandardDeck.Length);
+            Assert.Equal(expected, actual);
         }
 
-        // This test will fail sometimes when card ends up in same location in deck.  How do I test randomness?
-        [Theory]
-        [InlineData(0)]
-        [InlineData(51)]
-        [InlineData(20)]
-        
-        public void GivenShuffle_WhenInputIsNull_ThenShouldReturnArrayWithDifferentOrder(int index)
+        [Fact]
+        public void GivenShuffle_WhenInputIsNull_ThenShouldRandomiseArrayOrder()
         {
-            Deck newDeck = new Deck();
-            string expected = newDeck.StandardDeck[index].Value + newDeck.StandardDeck[index].Suit;
+            Deck unshuffled = new Deck();
+            Deck shuffled = new Deck();
             
-            newDeck.Shuffle();
-            string actual = newDeck.StandardDeck[index].Value + newDeck.StandardDeck[index].Suit;
+            shuffled.Shuffle();
 
-            Assert.NotEqual(expected, actual);
+            Assert.NotEqual(unshuffled, shuffled);
+
         }
 
         [Fact]
         public void GivenDraw_WhenInputIsNull_ThenShouldReturnFirstCardInDeck()
         {
             Deck newDeck = new Deck();
-            string expectedValue = "2";
-            string expectedSuit = "HEARTS";
+            Value expectedValue = Value.Two;
+            Suit expectedSuit = Suit.Hearts;
 
             Card firstDraw = newDeck.Draw();
-            string actualValue = firstDraw.Value;
-            string actualSuit = firstDraw.Suit;
+            Value actualValue = firstDraw.Value;
+            Suit actualSuit = firstDraw.Suit;
 
             Assert.Equal(expectedValue, actualValue);
             Assert.Equal(expectedSuit, actualSuit);

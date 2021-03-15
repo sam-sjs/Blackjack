@@ -1,7 +1,5 @@
-using System.Runtime.InteropServices;
 using Blackjack;
 using Xunit;
-using Xunit.Sdk;
 
 namespace BlackjackTests
 {
@@ -32,23 +30,20 @@ namespace BlackjackTests
         }
 
         [Fact]
+        public void GivenNewGame_WhenInputIsNull_ThenCreateNewDeckInGameInstance()
+        {
+            Game game = new Game();
+            
+            Assert.True(game.Deck.StandardDeck.Length > 0);
+        }
+
+        [Fact]
         public void GivenPlayTurn_WhenInputIsNull_ThenReturn0()
         {
             int expected = 0;
 
             Game game = new Game();
             int actual = game.PlayTurn();
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void GivenHit_WhenInputIsNull_ThenReturn0()
-        {
-            int expected = 0;
-
-            Game game = new Game();
-            int actual = game.Hit();
 
             Assert.Equal(expected, actual);
         }

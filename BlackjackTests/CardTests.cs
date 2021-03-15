@@ -6,15 +6,25 @@ namespace BlackjackTests
     public class CardTests
     {
         [Fact]
-        public void GivenCard_WhenInputIsTwoStrings_ThenShouldCreateWithRespectiveProperties()
+        public void GivenCard_WhenInputIsTwoEnums_ThenShouldCreateWithRespectiveProperties()
         {
-            string input1 = "KING";
-            string input2 = "HEARTS";
+            Value expectedValue = Value.King;
+            Suit expectedSuit = Suit.Hearts;
 
-            Card actual = new Card(input1, input2);
+            Card actual = new Card(expectedValue, expectedSuit);
             
-            Assert.Equal(input1, actual.Value);
-            Assert.Equal(input2, actual.Suit);
+            Assert.Equal(expectedValue, actual.Value);
+            Assert.Equal(expectedSuit, actual.Suit);
+        }
+
+        [Fact]
+        public void GivenTwoCards_WhenSameValueAndSuit_ThenShouldBeEqual()
+        {
+            Card expected = new Card(Value.Two, Suit.Hearts);
+
+            Card actual = new Card(Value.Two, Suit.Hearts);
+
+            Assert.True(expected.Equals(actual));
         }
     }
 }
