@@ -23,5 +23,12 @@ namespace Blackjack
                 return (Value == p.Value) && (Suit == p.Suit);
             }
         }
+        
+        public int GetCardValue()
+        {
+            if (Value == Value.Jack || Value == Value.Queen || Value == Value.King) return 10;
+            if (Value == Value.Ace) return 11;
+            return (int)Value;
+        }
     }
 }

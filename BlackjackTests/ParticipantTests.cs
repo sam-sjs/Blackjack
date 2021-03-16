@@ -6,13 +6,14 @@ namespace BlackjackTests
     public class ParticipantTests
     {
         [Fact]
-        public void GivenHit_WhenInputIsNull_ThenReturnCardObject()
+        public void GivenHit_WhenInputIsNull_ThenIncreaseScoreByValueOfCard()
         {
             Participant participant = new Participant();
-            
-            Card card = participant.Hit();
         
-            Assert.NotNull(card);
+            participant.Hit();
+            int actual = participant.Score;
+        
+            Assert.True(actual > 0);
         }
     }
 }

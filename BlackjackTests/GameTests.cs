@@ -8,33 +8,33 @@ namespace BlackjackTests
         // Feel like I skipped over some testing - this test required me to create Game, Participant & Player but
         // couldn't figure out how to break up the testing more.
         [Fact]
-        public void GivenNewGame_WhenInputIsNull_ThenCreatesGameWithPlayerScore0()
+        public void GivenGame_WhenInputIsNull_ThenCreatesPlayerWithScore0()
         {
             int expected = 0;
             
-            Game game = new Game();
-            int actual = game.Player.Score;
+            int actual = Game.Player.Score;
             
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void GivenNewGame_WhenInputIsNull_ThenCreatesDealerWithScore0()
+        public void GivenGame_WhenInputIsNull_ThenCreatesDealerWithScore0()
         {
             int expected = 0;
 
-            Game game = new Game();
-            int actual = game.Dealer.Score;
+            int actual = Game.Dealer.Score;
 
             Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void GivenNewGame_WhenInputIsNull_ThenCreateNewDeckInGameInstance()
+        public void GivenGame_WhenInputIsNull_ThenCreatesNew52CardDeck()
         {
-            Game game = new Game();
-            
-            Assert.True(game.Deck.StandardDeck.Length > 0);
+            int expected = 52;
+
+            int actual = Game.Deck.StandardDeck.Length;
+
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
@@ -42,20 +42,7 @@ namespace BlackjackTests
         {
             int expected = 0;
 
-            Game game = new Game();
-            int actual = game.PlayTurn();
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Theory]
-        [InlineData("2", 2)]
-        [InlineData("K", 10)]
-        [InlineData("A", 11)]
-        public void GivenGetCardValue_WhenInputIsStringValue_ThenReturnValueAsInt(string input, int expected)
-        {
-            Game game = new Game();
-            int actual = game.GetCardValue(input);
+            int actual = Game.PlayTurn();
 
             Assert.Equal(expected, actual);
         }

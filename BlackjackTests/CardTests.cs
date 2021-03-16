@@ -26,5 +26,19 @@ namespace BlackjackTests
 
             Assert.True(expected.Equals(actual));
         }
+        
+        [Theory]
+        [InlineData(Value.Two, 2)]
+        [InlineData(Value.Seven, 7)]
+        [InlineData(Value.King, 10)]
+        [InlineData(Value.Ace, 11)]
+        public void GivenGetCardValue_WhenInputIsStringValue_ThenReturnValueAsInt(Value input, int expected)
+        {
+            Card card = new Card(input, Suit.Clubs);
+            
+            int actual = card.GetCardValue();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
