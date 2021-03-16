@@ -1,13 +1,10 @@
 
 namespace Blackjack
 {
-    public class Participant
+    public interface IParticipant
     {
-        public int Score { get; private set; }
-        
-        public void Hit(Card newCard)
-        {
-            Score += newCard.GetCardValue();
-        }
+        public int Score { get; set; }
+        public int PlayTurn();
+        public void Hit(Card newCard);
     }
 }

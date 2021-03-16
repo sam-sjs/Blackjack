@@ -5,8 +5,8 @@ namespace BlackjackTests
 {
     public class GameTests
     {
-        private readonly Participant _defaultPlayer = new();
-        private readonly Participant _defaultDealer = new();
+        private readonly Player _defaultPlayer = new();
+        private readonly Dealer _defaultDealer = new();
         private readonly Deck _defaultDeck = new();
         
         [Fact]
@@ -43,12 +43,12 @@ namespace BlackjackTests
         }
 
         [Fact]
-        public void GivenPlayTurn_WhenInputIsNull_ThenReturn0()
+        public void GivenPlay_WhenInputIsNull_ThenReturn0()
         {
             int expected = 0;
             
             Game newGame = new Game(_defaultPlayer, _defaultDealer, _defaultDeck);
-            int actual = newGame.PlayTurn();
+            int actual = newGame.Play();
 
             Assert.Equal(expected, actual);
         }

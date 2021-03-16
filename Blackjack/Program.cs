@@ -5,10 +5,11 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
-            Participant player = new Participant();
-            Participant dealer = new Participant();
+            Player player = new Player();
+            Dealer dealer = new Dealer();
             Deck deck = new Deck();
             Game game = new Game(player, dealer, deck);
+            game.Play();
         }
     }
 }
