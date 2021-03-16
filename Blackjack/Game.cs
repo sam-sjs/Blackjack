@@ -1,20 +1,20 @@
 
 namespace Blackjack
 {
-    public static class Game
+    public class Game
     {
-        static Game()
+        public Game(Participant player, Participant dealer, Deck deck)
         {
-            Player = new Participant();
-            Dealer = new Participant();
-            Deck = new Deck();
+            Player = player;
+            Dealer = dealer;
+            Deck = deck;
             Deck.Shuffle();
         }
-        public static Participant Player { get; }
-        public static Participant Dealer { get; }
-        public static Deck Deck { get; }
+        public Participant Player { get; }
+        public Participant Dealer { get; }
+        public Deck Deck { get; }
 
-        public static int PlayTurn()
+        public int PlayTurn()
         {
             return 0;
         }

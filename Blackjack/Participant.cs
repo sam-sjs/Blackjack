@@ -3,11 +3,10 @@ namespace Blackjack
 {
     public class Participant
     {
-        public int Score { get; set; } = 0;
+        public int Score { get; private set; }
         
-        public void Hit()
+        public void Hit(Card newCard)
         {
-            Card newCard = Game.Deck.Draw();
             Score += newCard.GetCardValue();
         }
     }

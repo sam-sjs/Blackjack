@@ -18,17 +18,23 @@ namespace Blackjack
             {
                 return false;
             }
-            else {
-                Card p = (Card) obj;
-                return (Value == p.Value) && (Suit == p.Suit);
-            }
+            Card p = (Card) obj;
+            return (Value == p.Value) && (Suit == p.Suit);
         }
         
         public int GetCardValue()
         {
-            if (Value == Value.Jack || Value == Value.Queen || Value == Value.King) return 10;
-            if (Value == Value.Ace) return 11;
-            return (int)Value;
+            switch (Value)
+            {
+                case Value.Jack:
+                case Value.Queen:
+                case Value.King:
+                    return 10;
+                case Value.Ace:
+                    return 11;
+                default:
+                    return (int)Value;
+            }
         }
     }
 }
