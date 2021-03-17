@@ -35,5 +35,32 @@ namespace Blackjack
 
             return input == "1" ? Choice.Hit : Choice.Stay;
         }
+
+        public void Bust(List<Card> hand)
+        {
+            Card newCard = hand[^1];
+            Console.WriteLine($"You draw {newCard.Value} of {newCard.Suit}");
+            Console.WriteLine();
+            Console.WriteLine("You've gone bust!");
+        }
+
+        public void GameOutcome(Result result, List<Card> hand)
+        {
+            Card newCard = hand[^1];
+            Console.WriteLine($"Dealer draws {newCard.Value} of {newCard.Suit}");
+            Console.WriteLine();
+            switch (result)
+            {
+                case Result.Win:
+                    Console.WriteLine("You beat the dealer!");
+                    break;
+                case Result.Lose:
+                    Console.WriteLine("Dealer Wins!");
+                    break;
+                case Result.Tie:
+                    Console.WriteLine("The game is a tie!");
+                    break;
+            }
+        }
     }
 }

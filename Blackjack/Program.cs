@@ -5,8 +5,8 @@ namespace Blackjack
     {
         static void Main(string[] args)
         {
-            Player player = new Player();
-            Dealer dealer = new Dealer();
+            Participant player = new Participant();
+            Participant dealer = new Participant();
             Deck deck = new Deck();
             InputOutput io = new InputOutput();
             Game game = new Game(player, dealer, deck, io);

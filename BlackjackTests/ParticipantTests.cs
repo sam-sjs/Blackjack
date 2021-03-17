@@ -8,7 +8,7 @@ namespace BlackjackTests
         [Fact]
         public void GivenHit_WhenInputIsDeck_ThenScoreIsIncreased()
         {
-            Player player = new Player();
+            Participant player = new Participant();
             Deck deck = new Deck();
         
             player.Hit(deck);

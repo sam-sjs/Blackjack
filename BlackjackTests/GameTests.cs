@@ -8,8 +8,8 @@ namespace BlackjackTests
         [Fact]
         public void GivenGame_WhenInputIsNull_ThenCreatesPlayerWithScore0()
         {
-            Player defaultPlayer = new();
-            Dealer defaultDealer = new();
+            Participant defaultPlayer = new();
+            Participant defaultDealer = new();
             Deck defaultDeck = new();
             InputOutput defaultIo = new();
             int expected = 0;
@@ -23,8 +23,8 @@ namespace BlackjackTests
         [Fact]
         public void GivenGame_WhenInputIsNull_ThenCreatesDealerWithScore0()
         {
-            Player defaultPlayer = new();
-            Dealer defaultDealer = new();
+            Participant defaultPlayer = new();
+            Participant defaultDealer = new();
             Deck defaultDeck = new();
             InputOutput defaultIo = new();
             int expected = 0;
@@ -38,8 +38,8 @@ namespace BlackjackTests
         [Fact]
         public void GivenGame_WhenInputIsNull_ThenCreatesNew52CardDeck()
         {
-            Player defaultPlayer = new();
-            Dealer defaultDealer = new();
+            Participant defaultPlayer = new();
+            Participant defaultDealer = new();
             Deck defaultDeck = new();
             InputOutput defaultIo = new();
             int expected = 52;
