@@ -6,16 +6,12 @@ namespace Blackjack
 {
     public class InputOutput
     {
-        public void DisplayHand(Card newCard, int score, List<Card> hand)
+        public void DisplayHand(int score, List<Card> hand)
         {
-            if (hand.Count == 2)
-            {
-                Console.WriteLine("Welcome to Blackjack!");
-            }
-            else
-            {
-                Console.WriteLine($"You draw {newCard.Value} of {newCard.Suit}");
-            }
+            Card newCard = hand[^1]; // A little suspicious that this should be hand[^0] but will see when can test.
+            Console.WriteLine(hand.Count == 2
+                ? "Welcome to Blackjack!"
+                : $"You draw {newCard.Value} of {newCard.Suit}");
             Console.WriteLine();
             Console.WriteLine($"You are currently at {score}");
             Console.Write("with the hand ");
@@ -34,11 +30,10 @@ namespace Blackjack
             {
                 input = Console.ReadLine();
                 if (input == "0" || input == "1") break;
-                Console.WriteLine("Incorrect input please select again"); // Mixing input/output? Should I separate this somehow?
+                Console.WriteLine("Incorrect input please select again");
             }
 
-            if (input == "1") return Choice.Hit;
-            return Choice.Stay;
+            return input == "1" ? Choice.Hit : Choice.Stay;
         }
     }
 }

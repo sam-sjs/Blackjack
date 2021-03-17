@@ -8,8 +8,9 @@ namespace Blackjack
             Player player = new Player();
             Dealer dealer = new Dealer();
             Deck deck = new Deck();
-            Game game = new Game(player, dealer, deck);
-            game.Play();
+            InputOutput io = new InputOutput();
+            Game game = new Game(player, dealer, deck, io);
+            game.PlayGame();
         }
     }
 }
