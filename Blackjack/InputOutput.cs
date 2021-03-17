@@ -32,34 +32,46 @@ namespace Blackjack
                 if (input == "0" || input == "1") break;
                 Console.WriteLine("Incorrect input please select again");
             }
-
             return input == "1" ? Choice.Hit : Choice.Stay;
         }
 
-        public void Bust(List<Card> hand)
+        // Can probably pull something fancy to merge this with DisplayHand()
+        public void DisplayDealer(int score, List<Card> hand)
         {
-            Card newCard = hand[^1];
-            Console.WriteLine($"You draw {newCard.Value} of {newCard.Suit}");
             Console.WriteLine();
-            Console.WriteLine("You've gone bust!");
+            Console.WriteLine($"Dealer is at {score}");
+            Console.Write("with the hand ");
+            foreach (Card card in hand)
+            {
+                Console.Write($"{card.Value} of {card.Suit}");
+            }
         }
 
         public void GameOutcome(Result result, List<Card> hand)
         {
-            Card newCard = hand[^1];
-            Console.WriteLine($"Dealer draws {newCard.Value} of {newCard.Suit}");
-            Console.WriteLine();
-            switch (result)
+            Card lastCard = hand[^1];
+            if (result == Result.Bust)
             {
-                case Result.Win:
-                    Console.WriteLine("You beat the dealer!");
-                    break;
-                case Result.Lose:
-                    Console.WriteLine("Dealer Wins!");
-                    break;
-                case Result.Tie:
-                    Console.WriteLine("The game is a tie!");
-                    break;
+                Console.WriteLine($"You draw {lastCard.Value} of {lastCard.Suit}");
+                Console.WriteLine();
+                Console.WriteLine("You've gone bust!");
+            }
+            else
+            {
+                Console.WriteLine($"Dealer draws {lastCard.Value} of {lastCard.Suit}");
+                Console.WriteLine();
+                switch (result)
+                {
+                    case Result.Win:
+                        Console.WriteLine("You beat the dealer!");
+                        break;
+                    case Result.Lose:
+                        Console.WriteLine("Dealer Wins!");
+                        break;
+                    case Result.Tie:
+                        Console.WriteLine("The game is a tie!");
+                        break;
+                }
             }
         }
     }

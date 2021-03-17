@@ -28,10 +28,8 @@ namespace Blackjack
             while (Player.Score < HighestScore)
             {
                 CheckBust(Player);
-                
                 Io.DisplayHand(Player.Score, Player.Hand);
                 Choice choice = Io.ReceiveChoice();
-
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
@@ -41,6 +39,8 @@ namespace Blackjack
 
             while (Dealer.Score < DealerHitMinimum || (Dealer.Score < Player.Score && Dealer.Score < HighestScore))
             {
+                CheckBust(Dealer);
+                Io.DisplayDealer(Dealer.Score, Dealer.Hand);
                 Dealer.Hit(Deck);
             }
 
@@ -58,7 +58,14 @@ namespace Blackjack
                 participant.AceCount -= 1;
                 return;
             }
-            Io.Bust(Player.Hand);
+            if (participant == Dealer)
+            {
+                Io.GameOutcome(Result.Win, participant.Hand);
+            }
+            else
+            {
+                Io.GameOutcome(Result.Bust, participant.Hand);
+            }
         }
     }
 }
