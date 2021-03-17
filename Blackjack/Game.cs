@@ -1,4 +1,6 @@
 
+using System.Threading;
+
 namespace Blackjack
 {
     public class Game
@@ -10,13 +12,13 @@ namespace Blackjack
             Deck = deck;
             Input = input;
             Output = output;
-            Deck.Shuffle();
         }
 
         private const int StartingHandSize = 2;
         private const int HighestScore = 21;
         private const int DealerHitMinimum = 17;
         private const int AceHighLowDifference = 10;
+        private const int DealerHitDelay = 750;
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
@@ -25,13 +27,17 @@ namespace Blackjack
 
         public void PlayGame()
         {
-            Player.Hit(Deck, StartingHandSize);
-            Dealer.Hit(Deck, StartingHandSize);
+            SetupGame();
             PlayerTurn();
             DealerTurn();
-            if (Player.Score > Dealer.Score) Output.GameOutcome(Result.Win, Dealer.Hand);
-            if (Player.Score < Dealer.Score) Output.GameOutcome(Result.Lose, Dealer.Hand);
-            if (Player.Score == Dealer.Score) Output.GameOutcome(Result.Tie, Dealer.Hand);
+            DetermineResult();
+        }
+
+        private void SetupGame()
+        {
+            Deck.Shuffle();
+            Player.Hit(Deck, StartingHandSize);
+            Dealer.Hit(Deck, StartingHandSize);
         }
 
         private void PlayerTurn()
@@ -55,6 +61,7 @@ namespace Blackjack
             {
                 CheckBust(Dealer);
                 Output.DisplayDealer(Dealer.Score, Dealer.Hand);
+                Thread.Sleep(DealerHitDelay); // Check this works
                 Dealer.Hit(Deck);
             }
         }
@@ -76,6 +83,13 @@ namespace Blackjack
             {
                 Output.GameOutcome(Result.Bust, participant.Hand);
             }
+        }
+
+        private void DetermineResult()
+        {
+            if (Player.Score > Dealer.Score) Output.GameOutcome(Result.Win, Dealer.Hand);
+            if (Player.Score < Dealer.Score) Output.GameOutcome(Result.Lose, Dealer.Hand);
+            if (Player.Score == Dealer.Score) Output.GameOutcome(Result.Tie, Dealer.Hand);
         }
     }
 }
