@@ -11,10 +11,11 @@ namespace BlackjackTests
             Participant defaultPlayer = new();
             Participant defaultDealer = new();
             Deck defaultDeck = new();
-            InputOutput defaultIo = new();
+            Input defaultInput = new();
+            Output defaultOutput = new();
             int expected = 0;
             
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultIo);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
             int actual = newGame.Player.Score;
             
             Assert.Equal(expected, actual);
@@ -26,10 +27,11 @@ namespace BlackjackTests
             Participant defaultPlayer = new();
             Participant defaultDealer = new();
             Deck defaultDeck = new();
-            InputOutput defaultIo = new();
+            Input defaultInput = new();
+            Output defaultOutput = new();
             int expected = 0;
             
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultIo);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
             int actual = newGame.Dealer.Score;
 
             Assert.Equal(expected, actual);
@@ -41,24 +43,14 @@ namespace BlackjackTests
             Participant defaultPlayer = new();
             Participant defaultDealer = new();
             Deck defaultDeck = new();
-            InputOutput defaultIo = new();
+            Input defaultInput = new();
+            Output defaultOutput = new();
             int expected = 52;
             
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultIo);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
             int actual = newGame.Deck.StandardDeck.Length;
 
             Assert.Equal(expected, actual);
         }
-
-        // [Fact]
-        // public void GivenPlayGame_WhenInputIsNull_ThenReturn0()
-        // {
-        //     int expected = 0;
-        //     
-        //     Game newGame = new Game(_defaultPlayer, _defaultDealer, _defaultDeck);
-        //     int actual = newGame.PlayGame();
-        //
-        //     Assert.Equal(expected, actual);
-        // }
     }
 }

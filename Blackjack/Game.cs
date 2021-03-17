@@ -3,12 +3,13 @@ namespace Blackjack
 {
     public class Game
     {
-        public Game(Participant player, Participant dealer, Deck deck, InputOutput io)
+        public Game(Participant player, Participant dealer, Deck deck, Input input, Output output)
         {
             Player = player;
             Dealer = dealer;
             Deck = deck;
-            Io = io;
+            Input = input;
+            Output = output;
             Deck.Shuffle();
         }
 
@@ -19,34 +20,43 @@ namespace Blackjack
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
-        public InputOutput Io { get; }
+        public Input Input { get; }
+        public Output Output { get; }
 
         public void PlayGame()
         {
             Player.Hit(Deck, StartingHandSize);
             Dealer.Hit(Deck, StartingHandSize);
+            PlayerTurn();
+            DealerTurn();
+            if (Player.Score > Dealer.Score) Output.GameOutcome(Result.Win, Dealer.Hand);
+            if (Player.Score < Dealer.Score) Output.GameOutcome(Result.Lose, Dealer.Hand);
+            if (Player.Score == Dealer.Score) Output.GameOutcome(Result.Tie, Dealer.Hand);
+        }
+
+        private void PlayerTurn()
+        {
             while (Player.Score < HighestScore)
             {
                 CheckBust(Player);
-                Io.DisplayHand(Player.Score, Player.Hand);
-                Choice choice = Io.ReceiveChoice();
+                Output.DisplayHand(Player.Score, Player.Hand);
+                Choice choice = Input.ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
                 }
                 if (choice == Choice.Stay) break;
             }
+        }
 
+        private void DealerTurn()
+        {
             while (Dealer.Score < DealerHitMinimum || (Dealer.Score < Player.Score && Dealer.Score < HighestScore))
             {
                 CheckBust(Dealer);
-                Io.DisplayDealer(Dealer.Score, Dealer.Hand);
+                Output.DisplayDealer(Dealer.Score, Dealer.Hand);
                 Dealer.Hit(Deck);
             }
-
-            if (Player.Score > Dealer.Score) Io.GameOutcome(Result.Win, Dealer.Hand);
-            if (Player.Score < Dealer.Score) Io.GameOutcome(Result.Lose, Dealer.Hand);
-            if (Player.Score == Dealer.Score) Io.GameOutcome(Result.Tie, Dealer.Hand);
         }
 
         private void CheckBust(Participant participant)
@@ -60,11 +70,11 @@ namespace Blackjack
             }
             if (participant == Dealer)
             {
-                Io.GameOutcome(Result.Win, participant.Hand);
+                Output.GameOutcome(Result.Win, participant.Hand);
             }
             else
             {
-                Io.GameOutcome(Result.Bust, participant.Hand);
+                Output.GameOutcome(Result.Bust, participant.Hand);
             }
         }
     }

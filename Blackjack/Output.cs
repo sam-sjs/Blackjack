@@ -1,10 +1,9 @@
-
 using System;
 using System.Collections.Generic;
 
 namespace Blackjack
 {
-    public class InputOutput
+    public class Output
     {
         public void DisplayHand(int score, List<Card> hand)
         {
@@ -23,18 +22,6 @@ namespace Blackjack
             Console.WriteLine("Hit or stay? (Hit = 1, Stay = 0)");
         }
         
-        public Choice ReceiveChoice()
-        {
-            string input;
-            while (true)
-            {
-                input = Console.ReadLine();
-                if (input == "0" || input == "1") break;
-                Console.WriteLine("Incorrect input please select again");
-            }
-            return input == "1" ? Choice.Hit : Choice.Stay;
-        }
-
         // Can probably pull something fancy to merge this with DisplayHand()
         public void DisplayDealer(int score, List<Card> hand)
         {
@@ -46,7 +33,7 @@ namespace Blackjack
                 Console.Write($"{card.Value} of {card.Suit}");
             }
         }
-
+        
         public void GameOutcome(Result result, List<Card> hand)
         {
             Card lastCard = hand[^1];
