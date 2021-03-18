@@ -5,7 +5,12 @@ namespace Blackjack
 {
     public class Participant
     {
+        public Participant(Role role)
+        {
+            Role = role;
+        }
         private const int AceValue = 11;
+        public Role Role { get; set; }
         public int Score { get; set; }
         public int AceCount { get; set; }
         public List<Card> Hand { get; set; } = new();

@@ -1,4 +1,5 @@
 
+using System;
 using System.Threading;
 
 namespace Blackjack
@@ -30,7 +31,7 @@ namespace Blackjack
             SetupGame();
             PlayerTurn();
             DealerTurn();
-            DetermineResult();
+            DisplayResult();
         }
 
         private void SetupGame()
@@ -42,27 +43,31 @@ namespace Blackjack
 
         private void PlayerTurn()
         {
+            Choice choice = Choice.NoChoice;
             while (Player.Score < HighestScore)
             {
-                CheckBust(Player);
-                Output.DisplayHand(Player.Score, Player.Hand);
-                Choice choice = Input.ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
                 }
                 if (choice == Choice.Stay) break;
+                CheckBust(Player);
+                Output.DisplayHand(Player.Score, Player.Hand);
+                if (Player.Score == HighestScore) break;
+                Output.PresentChoice();
+                choice = Input.ReceiveChoice();
             }
         }
 
         private void DealerTurn()
         {
+            Output.DisplayDealer(Dealer.Score, Dealer.Hand);
             while (Dealer.Score < DealerHitMinimum || (Dealer.Score < Player.Score && Dealer.Score < HighestScore))
             {
+                Thread.Sleep(DealerHitDelay);
+                Dealer.Hit(Deck);
                 CheckBust(Dealer);
                 Output.DisplayDealer(Dealer.Score, Dealer.Hand);
-                Thread.Sleep(DealerHitDelay); // Check this works
-                Dealer.Hit(Deck);
             }
         }
 
@@ -75,17 +80,11 @@ namespace Blackjack
                 participant.AceCount -= 1;
                 return;
             }
-            if (participant == Dealer)
-            {
-                Output.GameOutcome(Result.Win, participant.Hand);
-            }
-            else
-            {
-                Output.GameOutcome(Result.Bust, participant.Hand);
-            }
+            Output.GameOutcome(participant == Dealer ? Result.Win : Result.Bust, participant.Hand);
+            Environment.Exit(0);
         }
 
-        private void DetermineResult()
+        private void DisplayResult()
         {
             if (Player.Score > Dealer.Score) Output.GameOutcome(Result.Win, Dealer.Hand);
             if (Player.Score < Dealer.Score) Output.GameOutcome(Result.Lose, Dealer.Hand);

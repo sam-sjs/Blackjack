@@ -17,7 +17,7 @@ namespace BlackjackTests
         }
 
         [Fact]
-        public void GivenShuffle_WhenInputIsNull_ThenShouldRandomiseArrayOrder()
+        public void WhenShuffle_ThenShouldRandomiseArrayOrder()
         {
             Deck unshuffled = new Deck();
             Deck shuffled = new Deck();
@@ -29,7 +29,7 @@ namespace BlackjackTests
         }
 
         [Fact]
-        public void GivenDraw_WhenInputIsNull_ThenShouldReturnFirstCardInDeck()
+        public void WhenDraw_ThenShouldReturnFirstCardInDeck()
         {
             Deck newDeck = new Deck();
             Value expectedValue = Value.Two;
