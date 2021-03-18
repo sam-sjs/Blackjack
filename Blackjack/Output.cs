@@ -7,7 +7,7 @@ namespace Blackjack
     {
         public void DisplayHand(Participant participant)
         {
-            int score = participant.Score;
+            int score = participant.GetScore();
             List<Card> hand = participant.Hand;
             string prefix = participant.Role == Role.Player ? "You are" : "The Dealer is";
             

@@ -9,19 +9,16 @@ namespace Blackjack
         {
             Role = role;
         }
-        private const int AceValue = 11;
-        public Role Role { get; set; }
-        public int Score { get; set; }
-        public int AceCount { get; set; }
-        public List<Card> Hand { get; set; } = new();
+
+        private const int HighestScore = 21;
+        private const int AceHighLowDifference = 10;
+        public Role Role { get; }
+        public List<Card> Hand { get; } = new();
         public void Hit(Deck deck, int cards = 1)
         {
             for (int i = 0; i < cards; i++)
             {
                 Card newCard = deck.Draw();
-                int cardValue = newCard.GetCardValue();
-                Score += cardValue;
-                if (cardValue == AceValue) AceCount++;
                 Hand.Add(newCard);
             }
         }
@@ -36,9 +33,9 @@ namespace Blackjack
                 if (card.Value == Value.Ace) aceCount++;
             }
 
-            while (score > 21 && aceCount > 0)
+            while (score > HighestScore && aceCount > 0)
             {
-                score -= 10;
+                score -= AceHighLowDifference;
                 aceCount -= 1;
             }
 

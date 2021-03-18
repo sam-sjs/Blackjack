@@ -1,6 +1,5 @@
 using Blackjack;
 using Xunit;
-using Xunit.Sdk;
 
 namespace BlackjackTests
 {
@@ -13,7 +12,7 @@ namespace BlackjackTests
             Deck deck = new Deck();
         
             player.Hit(deck);
-            int actual = player.Score;
+            int actual = player.GetScore();
 
             Assert.True(actual > 0);
         }

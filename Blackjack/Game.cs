@@ -44,7 +44,7 @@ namespace Blackjack
         private void PlayerTurn()
         {
             Output.DisplayHand(Player);
-            while (Player.Score < HighestScore)
+            while (Player.GetScore() < HighestScore)
             {
                 Output.PresentChoice();
                 Choice choice = Input.ReceiveChoice();
@@ -62,7 +62,7 @@ namespace Blackjack
         private void DealerTurn()
         {
             Output.DisplayHand(Dealer);
-            while (Dealer.Score < DealerHitMinimum || (Dealer.Score < Player.Score && Dealer.Score < HighestScore))
+            while (Dealer.GetScore() < DealerHitMinimum || (Dealer.GetScore() < Player.GetScore() && Dealer.GetScore() < HighestScore))
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
@@ -74,22 +74,14 @@ namespace Blackjack
 
         private void CheckBust(Participant participant)
         {
-            if (participant.Score <= HighestScore) return;
-            if (participant.AceCount > 0)
-            {
-                participant.Score -= AceHighLowDifference;
-                participant.AceCount -= 1;
-                return;
-            }
-            Output.GameOutcome(participant == Dealer ? Result.Win : Result.Bust, participant.Hand);
-            Environment.Exit(0);
+            
         }
 
         private void DisplayResult()
         {
-            if (Player.Score > Dealer.Score) Output.GameOutcome(Result.Win, Dealer.Hand);
-            if (Player.Score < Dealer.Score) Output.GameOutcome(Result.Lose, Dealer.Hand);
-            if (Player.Score == Dealer.Score) Output.GameOutcome(Result.Tie, Dealer.Hand);
+            if (Player.GetScore() > Dealer.GetScore()) Output.GameOutcome(Result.Win, Dealer.Hand);
+            if (Player.GetScore() < Dealer.GetScore()) Output.GameOutcome(Result.Lose, Dealer.Hand);
+            if (Player.GetScore() == Dealer.GetScore()) Output.GameOutcome(Result.Tie, Dealer.Hand);
         }
     }
 }
