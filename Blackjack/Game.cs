@@ -19,7 +19,7 @@ namespace Blackjack
         private const int HighestScore = 21;
         private const int DealerHitMinimum = 17;
         private const int AceHighLowDifference = 10;
-        private const int DealerHitDelay = 750;
+        private const int DealerHitDelay = 1000;
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
@@ -43,31 +43,32 @@ namespace Blackjack
 
         private void PlayerTurn()
         {
-            Choice choice = Choice.NoChoice;
+            Output.DisplayHand(Player);
             while (Player.Score < HighestScore)
             {
+                Output.PresentChoice();
+                Choice choice = Input.ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
                 }
                 if (choice == Choice.Stay) break;
+                Output.DisplayDraw(Player);
                 CheckBust(Player);
-                Output.DisplayHand(Player.Score, Player.Hand);
-                if (Player.Score == HighestScore) break;
-                Output.PresentChoice();
-                choice = Input.ReceiveChoice();
+                Output.DisplayHand(Player);
             }
         }
 
         private void DealerTurn()
         {
-            Output.DisplayDealer(Dealer.Score, Dealer.Hand);
+            Output.DisplayHand(Dealer);
             while (Dealer.Score < DealerHitMinimum || (Dealer.Score < Player.Score && Dealer.Score < HighestScore))
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
                 CheckBust(Dealer);
-                Output.DisplayDealer(Dealer.Score, Dealer.Hand);
+                Output.DisplayDraw(Dealer);
+                Output.DisplayHand(Dealer);
             }
         }
 

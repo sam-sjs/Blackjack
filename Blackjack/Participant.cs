@@ -25,5 +25,24 @@ namespace Blackjack
                 Hand.Add(newCard);
             }
         }
+
+        public int GetScore()
+        {
+            int score = 0;
+            int aceCount = 0;
+            foreach (Card card in Hand)
+            {
+                score += card.GetCardValue();
+                if (card.Value == Value.Ace) aceCount++;
+            }
+
+            while (score > 21 && aceCount > 0)
+            {
+                score -= 10;
+                aceCount -= 1;
+            }
+
+            return score;
+        }
     }
 }

@@ -5,14 +5,14 @@ namespace Blackjack
 {
     public class Output
     {
-        public void DisplayHand(int score, List<Card> hand)
+        public void DisplayHand(Participant participant)
         {
-            Card newCard = hand[^1];
-            Console.WriteLine(hand.Count == 2
-                ? "Welcome to Blackjack!"
-                : $"You draw [{newCard.Value} of {newCard.Suit}]");
+            int score = participant.Score;
+            List<Card> hand = participant.Hand;
+            string prefix = participant.Role == Role.Player ? "You are" : "The Dealer is";
+            
             Console.WriteLine();
-            Console.WriteLine($"You are currently at {score}");
+            Console.WriteLine($"{prefix} currently at {score}");
             Console.Write("with the hand ");
             foreach (Card card in hand)
             {
@@ -21,24 +21,17 @@ namespace Blackjack
             Console.WriteLine();
         }
 
+        public void DisplayDraw(Participant participant)
+        {
+            Card newCard = participant.Hand[^1];
+            Console.WriteLine(participant.Role == Role.Player
+                ? $"You draw [{newCard.Value} of {newCard.Suit}]"
+                : $"The dealer draws [{newCard.Value} of {newCard.Suit}]");
+        }
+
         public void PresentChoice()
         {
             Console.Write("Hit or stay? (Hit = 1, Stay = 0)");
-        }
-        
-        // Can probably pull something fancy to merge this with DisplayHand()
-        public void DisplayDealer(int score, List<Card> hand)
-        {
-            Card newCard = hand[^1];
-            if (hand.Count > 2) Console.WriteLine($"Dealer draws [{newCard.Value} of {newCard.Suit}]");
-            Console.WriteLine();
-            Console.WriteLine($"Dealer is at {score}");
-            Console.WriteLine("with the hand ");
-            foreach (Card card in hand)
-            {
-                Console.Write($"[{card.Value} of {card.Suit}], ");
-            }
-            Console.WriteLine();
         }
         
         public void GameOutcome(Result result, List<Card> hand)
@@ -52,7 +45,6 @@ namespace Blackjack
             }
             else
             {
-                Console.WriteLine($"Dealer draws [{lastCard.Value} of {lastCard.Suit}]");
                 Console.WriteLine();
                 switch (result)
                 {
