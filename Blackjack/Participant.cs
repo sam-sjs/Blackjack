@@ -14,7 +14,7 @@ namespace Blackjack
         private const int AceHighLowDifference = 10;
         public Role Role { get; }
         public List<Card> Hand { get; } = new();
-        public bool IsBust { get; set; }
+        public bool IsBust { get; private set; }
         
         public void Hit(Deck deck, int cards = 1)
         {

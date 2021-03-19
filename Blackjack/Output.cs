@@ -16,7 +16,7 @@ namespace Blackjack
             Console.Write("with the hand ");
             foreach (Card card in hand)
             {
-                Console.Write($"[{card.Value} of {card.Suit}], ");
+                Console.Write($"[{card.Value} of {card.Suit}] ");
             }
             Console.WriteLine();
         }
@@ -24,6 +24,7 @@ namespace Blackjack
         public void DisplayDraw(Participant participant)
         {
             Card newCard = participant.Hand[^1];
+            Console.WriteLine("=============================");
             Console.WriteLine(participant.Role == Role.Player
                 ? $"You draw [{newCard.Value} of {newCard.Suit}]"
                 : $"The dealer draws [{newCard.Value} of {newCard.Suit}]");
@@ -34,30 +35,23 @@ namespace Blackjack
             Console.Write("Hit or stay? (Hit = 1, Stay = 0)");
         }
         
-        public void GameOutcome(Result result, List<Card> hand)
+        public void DisplayResult(Result result)
         {
-            Card lastCard = hand[^1];
-            if (result == Result.Bust)
+            Console.WriteLine();
+            switch (result)
             {
-                Console.WriteLine($"You draw [{lastCard.Value} of {lastCard.Suit}]");
-                Console.WriteLine();
-                Console.WriteLine("You've gone bust!");
-            }
-            else
-            {
-                Console.WriteLine();
-                switch (result)
-                {
-                    case Result.Win:
-                        Console.WriteLine("You beat the dealer!");
-                        break;
-                    case Result.Lose:
-                        Console.WriteLine("Dealer Wins!");
-                        break;
-                    case Result.Tie:
-                        Console.WriteLine("The game is a tie!");
-                        break;
-                }
+                case Result.Win:
+                    Console.WriteLine("You beat the dealer!");
+                    break;
+                case Result.Lose:
+                    Console.WriteLine("Dealer Wins!");
+                    break;
+                case Result.Tie:
+                    Console.WriteLine("The game is a tie!");
+                    break;
+                case Result.Bust:
+                    Console.WriteLine("You've gone bust!");
+                    break;
             }
         }
     }

@@ -1,6 +1,5 @@
 using Blackjack;
 using Xunit;
-using Xunit.Sdk;
 
 namespace BlackjackTests
 {

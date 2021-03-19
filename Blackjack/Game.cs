@@ -17,7 +17,7 @@ namespace Blackjack
         private const int StartingHandSize = 2;
         private const int HighestScore = 21;
         private const int DealerHitMinimum = 17;
-        private const int DealerHitDelay = 1000;
+        private const int DealerHitDelay = 1500;
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
@@ -29,7 +29,8 @@ namespace Blackjack
             SetupGame();
             PlayerTurn();
             if (!Player.IsBust) DealerTurn();
-            DisplayResult();
+            Result result = DetermineResult();
+            Output.DisplayResult(result);
         }
 
         private void SetupGame()
@@ -52,7 +53,7 @@ namespace Blackjack
                 }
                 if (choice == Choice.Stay) break;
                 Output.DisplayDraw(Player);
-                Player.CheckBust();
+                if (Player.CheckBust()) return;
                 Output.DisplayHand(Player);
             }
         }
@@ -65,18 +66,17 @@ namespace Blackjack
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
-                Dealer.CheckBust();
                 Output.DisplayDraw(Dealer);
+                if (Dealer.CheckBust()) return;
                 Output.DisplayHand(Dealer);
             }
         }
 
-
-        private void DisplayResult()
+        public Result DetermineResult()
         {
-            if (Player.GetScore() > Dealer.GetScore()) Output.GameOutcome(Result.Win, Dealer.Hand);
-            if (Player.GetScore() < Dealer.GetScore()) Output.GameOutcome(Result.Lose, Dealer.Hand);
-            if (Player.GetScore() == Dealer.GetScore()) Output.GameOutcome(Result.Tie, Dealer.Hand);
+            if (Player.IsBust) return Result.Bust;
+            if (Dealer.IsBust || Dealer.GetScore() < Player.GetScore()) return Result.Win;
+            return Player.GetScore() < Dealer.GetScore() ? Result.Lose : Result.Tie;
         }
     }
 }
