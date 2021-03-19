@@ -14,6 +14,8 @@ namespace Blackjack
         private const int AceHighLowDifference = 10;
         public Role Role { get; }
         public List<Card> Hand { get; } = new();
+        public bool IsBust { get; set; }
+        
         public void Hit(Deck deck, int cards = 1)
         {
             for (int i = 0; i < cards; i++)
@@ -40,6 +42,14 @@ namespace Blackjack
             }
 
             return score;
+        }
+
+        public bool CheckBust()
+        {
+            if (GetScore() <= HighestScore) return false;
+            IsBust = true;
+            return true;
+
         }
     }
 }

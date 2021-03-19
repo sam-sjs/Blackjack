@@ -1,5 +1,4 @@
 
-using System;
 using System.Threading;
 
 namespace Blackjack
@@ -18,7 +17,6 @@ namespace Blackjack
         private const int StartingHandSize = 2;
         private const int HighestScore = 21;
         private const int DealerHitMinimum = 17;
-        private const int AceHighLowDifference = 10;
         private const int DealerHitDelay = 1000;
         public Participant Player { get; }
         public Participant Dealer { get; }
@@ -30,7 +28,7 @@ namespace Blackjack
         {
             SetupGame();
             PlayerTurn();
-            DealerTurn();
+            if (!Player.IsBust) DealerTurn();
             DisplayResult();
         }
 
@@ -54,7 +52,7 @@ namespace Blackjack
                 }
                 if (choice == Choice.Stay) break;
                 Output.DisplayDraw(Player);
-                CheckBust(Player);
+                Player.CheckBust();
                 Output.DisplayHand(Player);
             }
         }
@@ -62,20 +60,17 @@ namespace Blackjack
         private void DealerTurn()
         {
             Output.DisplayHand(Dealer);
-            while (Dealer.GetScore() < DealerHitMinimum || (Dealer.GetScore() < Player.GetScore() && Dealer.GetScore() < HighestScore))
+            while ((Dealer.GetScore() < Player.GetScore() && Dealer.GetScore() < HighestScore) || 
+                   Dealer.GetScore() < DealerHitMinimum)
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
-                CheckBust(Dealer);
+                Dealer.CheckBust();
                 Output.DisplayDraw(Dealer);
                 Output.DisplayHand(Dealer);
             }
         }
 
-        private void CheckBust(Participant participant)
-        {
-            
-        }
 
         private void DisplayResult()
         {

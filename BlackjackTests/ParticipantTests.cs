@@ -1,5 +1,6 @@
 using Blackjack;
 using Xunit;
+using Xunit.Sdk;
 
 namespace BlackjackTests
 {
@@ -18,7 +19,7 @@ namespace BlackjackTests
         }
 
         [Fact]
-        public void WhenGetScore_ThenReturnValueOfHand()
+        public void GivenGetScore_ThenReturnValueOfHand()
         {
             Participant player = new(Role.Player);
             player.Hand.Add(new Card(Value.Eight, Suit.Clubs));
@@ -42,6 +43,34 @@ namespace BlackjackTests
             int actual = player.GetScore();
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GivenCheckBust_WhenHandExceeds21_ThenReturnsTrue()
+        {
+            Participant player = new(Role.Player);
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+            bool expected = true;
+
+            bool actual = player.CheckBust();
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void GivenCheckBust_WhenHandExceeds21_ThenSetsIsBustToTrue()
+        {
+            Participant player = new(Role.Player);
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+            player.Hand.Add(new Card(Value.King, Suit.Clubs));
+
+            player.CheckBust();
+            bool actual = player.IsBust;
+
+            Assert.True(actual);
         }
     }
 }
