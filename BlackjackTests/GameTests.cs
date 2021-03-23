@@ -1,6 +1,5 @@
 using Blackjack;
 using Xunit;
-using Xunit.Sdk;
 
 namespace BlackjackTests
 {
@@ -31,8 +30,8 @@ namespace BlackjackTests
             ConsoleInput defaultInput = new();
             Output defaultOutput = new();
             Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
-            Card[] winning = new[] {new Card(Value.Jack, Suit.Clubs), new Card(Value.King, Suit.Clubs)};
-            Card[] losing = new[] {new Card(Value.Nine, Suit.Clubs), new Card(Value.Five, Suit.Clubs)};
+            Card[] winning = { new (Value.Jack, Suit.Clubs), new (Value.King, Suit.Clubs) };
+            Card[] losing = { new (Value.Nine, Suit.Clubs), new (Value.Five, Suit.Clubs) };
             defaultPlayer.Hand.AddRange(winning);
             defaultDealer.Hand.AddRange(losing);
             Result expected = Result.Win;
@@ -51,7 +50,7 @@ namespace BlackjackTests
             ConsoleInput defaultInput = new();
             Output defaultOutput = new();
             Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
-            Card[] scoreEquals15 = new[] {new Card(Value.Jack, Suit.Clubs), new Card(Value.Five, Suit.Clubs)};
+            Card[] scoreEquals15 = {new (Value.Jack, Suit.Clubs), new (Value.Five, Suit.Clubs)};
             defaultDealer.Hand.AddRange(scoreEquals15);
 
             bool actual = newGame.DealerShouldHit();
@@ -87,6 +86,21 @@ namespace BlackjackTests
             Choice actual = newGame.ReceiveChoice();
 
             Assert.Equal(Choice.Stay, actual);
+        }
+
+        [Fact]
+        public void WhenInputIsInvalid_ThenShouldAskForNewInput()
+        {
+            Participant defaultPlayer = new(Role.Player);
+            Participant defaultDealer = new(Role.Dealer);
+            Deck defaultDeck = new();
+            TestInput testInput = new("Q", "1");
+            Output defaultOutput = new();
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+            
+            Choice actual = newGame.ReceiveChoice();
+
+            Assert.Equal(Choice.Hit, actual);
         }
     }
 }
