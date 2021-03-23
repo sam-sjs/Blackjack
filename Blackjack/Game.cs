@@ -5,12 +5,12 @@ namespace Blackjack
 {
     public class Game
     {
-        public Game(Participant player, Participant dealer, Deck deck, Menu input, Output output)
+        public Game(Participant player, Participant dealer, Deck deck, IInput input, Output output)
         {
             Player = player;
             Dealer = dealer;
             Deck = deck;
-            Menu = input;
+            Input = input;
             Output = output;
         }
 
@@ -21,7 +21,7 @@ namespace Blackjack
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
-        public Menu Menu { get; }
+        public IInput Input { get; }
         public Output Output { get; }
 
         public void PlayGame()
@@ -46,7 +46,7 @@ namespace Blackjack
             while (Player.GetScore() < HighestScore)
             {
                 Output.PresentChoice();
-                Choice choice = Menu.ReceiveChoice();
+                Choice choice = ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
@@ -69,6 +69,18 @@ namespace Blackjack
                 if (Dealer.CheckBust()) return;
                 Output.DisplayHand(Dealer);
             }
+        }
+        
+        public Choice ReceiveChoice()
+        {
+            string input;
+            while (true)
+            {
+                input = Input.ReadLine();
+                if (input == "0" || input == "1") break;
+                Output.IncorrectInput();
+            }
+            return input == "1" ? Choice.Hit : Choice.Stay;
         }
 
         public Result DetermineResult()

@@ -12,7 +12,7 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            Menu defaultInput = new(new ConsoleInput());
+            ConsoleInput defaultInput = new();
             Output defaultOutput = new();
             int expected = 52;
             
@@ -28,7 +28,7 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            Menu defaultInput = new(new ConsoleInput());
+            ConsoleInput defaultInput = new();
             Output defaultOutput = new();
             Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
             Card[] winning = new[] {new Card(Value.Jack, Suit.Clubs), new Card(Value.King, Suit.Clubs)};
@@ -48,7 +48,7 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            Menu defaultInput = new(new ConsoleInput());
+            ConsoleInput defaultInput = new();
             Output defaultOutput = new();
             Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
             Card[] scoreEquals15 = new[] {new Card(Value.Jack, Suit.Clubs), new Card(Value.Five, Suit.Clubs)};
@@ -57,6 +57,36 @@ namespace BlackjackTests
             bool actual = newGame.DealerShouldHit();
 
             Assert.True(actual);
+        }
+        
+        [Fact]
+        public void WhenInputIs1_ThenChoiceShouldBeHit()
+        {
+            Participant defaultPlayer = new(Role.Player);
+            Participant defaultDealer = new(Role.Dealer);
+            Deck defaultDeck = new();
+            TestInput testInput = new("1");
+            Output defaultOutput = new();
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+
+            Choice actual = newGame.ReceiveChoice();
+
+            Assert.Equal(Choice.Hit, actual);
+        }
+
+        [Fact]
+        public void WhenInputIs0_ThenChoiceShouldBeStay()
+        {
+            Participant defaultPlayer = new(Role.Player);
+            Participant defaultDealer = new(Role.Dealer);
+            Deck defaultDeck = new();
+            TestInput testInput = new("0");
+            Output defaultOutput = new();
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+
+            Choice actual = newGame.ReceiveChoice();
+
+            Assert.Equal(Choice.Stay, actual);
         }
     }
 }
