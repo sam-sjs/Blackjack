@@ -34,6 +34,11 @@ namespace Blackjack
         {
             Console.Write("Hit or stay? (Hit = 1, Stay = 0)");
         }
+
+        public void IncorrectInput()
+        {
+            Console.WriteLine("Incorrect input please select again");
+        }
         
         public void DisplayResult(Result result)
         {

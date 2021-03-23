@@ -12,7 +12,7 @@ namespace BlackjackTests
 
             Card actual = new Card(Value.Two, Suit.Hearts);
 
-            Assert.True(expected.Equals(actual));
+            Assert.Equal(expected, actual);
         }
         
         [Theory]

@@ -3,14 +3,20 @@ using System;
 
 namespace Blackjack
 {
-    public class Input
+    public class Menu
     {
+        private IInput _input;
+
+        public Menu(IInput consoleInput)
+        {
+            _input = consoleInput;
+        }
         public Choice ReceiveChoice()
         {
             string input;
             while (true)
             {
-                input = Console.ReadLine();
+                input = _input.ReadLine();
                 if (input == "0" || input == "1") break;
                 Console.WriteLine("Incorrect input please select again");
             }

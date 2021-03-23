@@ -5,12 +5,12 @@ namespace Blackjack
 {
     public class Game
     {
-        public Game(Participant player, Participant dealer, Deck deck, Input input, Output output)
+        public Game(Participant player, Participant dealer, Deck deck, Menu input, Output output)
         {
             Player = player;
             Dealer = dealer;
             Deck = deck;
-            Input = input;
+            Menu = input;
             Output = output;
         }
 
@@ -21,7 +21,7 @@ namespace Blackjack
         public Participant Player { get; }
         public Participant Dealer { get; }
         public Deck Deck { get; }
-        public Input Input { get; }
+        public Menu Menu { get; }
         public Output Output { get; }
 
         public void PlayGame()
@@ -46,7 +46,7 @@ namespace Blackjack
             while (Player.GetScore() < HighestScore)
             {
                 Output.PresentChoice();
-                Choice choice = Input.ReceiveChoice();
+                Choice choice = Menu.ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
@@ -61,8 +61,7 @@ namespace Blackjack
         private void DealerTurn()
         {
             Output.DisplayHand(Dealer);
-            while ((Dealer.GetScore() < Player.GetScore() && Dealer.GetScore() < HighestScore) || 
-                   Dealer.GetScore() < DealerHitMinimum)
+            while (DealerShouldHit())
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
@@ -77,6 +76,12 @@ namespace Blackjack
             if (Player.IsBust) return Result.Bust;
             if (Dealer.IsBust || Dealer.GetScore() < Player.GetScore()) return Result.Win;
             return Player.GetScore() < Dealer.GetScore() ? Result.Lose : Result.Tie;
+        }
+
+        public bool DealerShouldHit()
+        {
+            return (Dealer.GetScore() < Player.GetScore() && Dealer.GetScore() < HighestScore) ||
+                   Dealer.GetScore() < DealerHitMinimum;
         }
     }
 }
