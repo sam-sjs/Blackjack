@@ -1,24 +1,19 @@
 
+using System.Collections.Generic;
+
 namespace Blackjack
 {
     public class TestInput : IInput
     {
-        private string _choice;
-        private string _choice2;
-        private int _timesCalled;
-        public TestInput(string choice, string choice2 = "")
+        private int _timesCalled = 0;
+        private readonly IList<string> _inputs;
+        public TestInput(IList<string> inputs)
         {
-            _choice = choice;
-            _choice2 = choice2;
+            _inputs = inputs;
         }
         public string ReadLine()
         {
-            if (_timesCalled == 0)
-            {
-                _timesCalled++;
-                return _choice;
-            }
-            return _choice2;
+            return _inputs[_timesCalled++];
         }
     }
 }

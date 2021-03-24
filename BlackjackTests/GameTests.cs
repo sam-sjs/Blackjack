@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Blackjack;
 using Xunit;
 
@@ -12,10 +13,11 @@ namespace BlackjackTests
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
             ConsoleInput defaultInput = new();
-            Output defaultOutput = new();
+            ConsoleOutput defaultOutput = new();
+            Message defaultMessage = new(defaultOutput);
             int expected = 52;
             
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultMessage);
             int actual = newGame.Deck.StandardDeck.Length;
 
             Assert.Equal(expected, actual);
@@ -28,8 +30,9 @@ namespace BlackjackTests
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
             ConsoleInput defaultInput = new();
-            Output defaultOutput = new();
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultMessage);
             Card[] winning = { new (Value.Jack, Suit.Clubs), new (Value.King, Suit.Clubs) };
             Card[] losing = { new (Value.Nine, Suit.Clubs), new (Value.Five, Suit.Clubs) };
             defaultPlayer.Hand.AddRange(winning);
@@ -48,8 +51,9 @@ namespace BlackjackTests
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
             ConsoleInput defaultInput = new();
-            Output defaultOutput = new();
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultOutput);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, defaultInput, defaultMessage);
             Card[] scoreEquals15 = {new (Value.Jack, Suit.Clubs), new (Value.Five, Suit.Clubs)};
             defaultDealer.Hand.AddRange(scoreEquals15);
 
@@ -64,9 +68,11 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            TestInput testInput = new("1");
-            Output defaultOutput = new();
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+            List<string> inputs = new List<string> {"1"};
+            TestInput testInput = new(inputs);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
 
             Choice actual = newGame.ReceiveChoice();
 
@@ -79,9 +85,11 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            TestInput testInput = new("0");
-            Output defaultOutput = new();
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+            List<string> inputs = new List<string> {"0"};
+            TestInput testInput = new(inputs);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
 
             Choice actual = newGame.ReceiveChoice();
 
@@ -94,9 +102,28 @@ namespace BlackjackTests
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            TestInput testInput = new("Q", "1");
-            Output defaultOutput = new();
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultOutput);
+            List<string> inputs = new List<string> {"Q", "1"};
+            TestInput testInput = new(inputs);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
+            
+            Choice actual = newGame.ReceiveChoice();
+
+            Assert.Equal(Choice.Hit, actual);
+        }
+        
+        [Fact]
+        public void WhenInputIsInvalidInvalid_ThenShouldAskForNewInput()
+        {
+            Participant defaultPlayer = new(Role.Player);
+            Participant defaultDealer = new(Role.Dealer);
+            Deck defaultDeck = new();
+            List<string> inputs = new List<string> {"Q", "8", "1"};
+            TestInput testInput = new(inputs);
+            ConsoleOutput defalutOutput = new();
+            Message defaultMessage = new(defalutOutput);
+            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
             
             Choice actual = newGame.ReceiveChoice();
 

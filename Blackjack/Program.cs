@@ -9,8 +9,9 @@ namespace Blackjack
             Participant dealer = new Participant(Role.Dealer);
             Deck deck = new Deck();
             ConsoleInput input = new ConsoleInput();
-            Output output = new Output();
-            Game game = new Game(player, dealer, deck, input, output);
+            ConsoleOutput output = new ConsoleOutput();
+            Message message = new Message(output);
+            Game game = new Game(player, dealer, deck, input, message);
             game.PlayGame();
         }
     }

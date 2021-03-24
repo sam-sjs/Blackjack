@@ -5,13 +5,13 @@ namespace Blackjack
 {
     public class Game
     {
-        public Game(Participant player, Participant dealer, Deck deck, IInput input, Output output)
+        public Game(Participant player, Participant dealer, Deck deck, IInput input, Message message)
         {
             Player = player;
             Dealer = dealer;
             Deck = deck;
             Input = input;
-            Output = output;
+            Message = message;
         }
 
         private const int StartingHandSize = 2;
@@ -22,7 +22,7 @@ namespace Blackjack
         public Participant Dealer { get; }
         public Deck Deck { get; }
         public IInput Input { get; }
-        public Output Output { get; }
+        public Message Message { get; }
 
         public void PlayGame()
         {
@@ -30,7 +30,7 @@ namespace Blackjack
             PlayerTurn();
             if (!Player.IsBust) DealerTurn();
             Result result = DetermineResult();
-            Output.DisplayResult(result);
+            Message.DisplayResult(result);
         }
 
         private void SetupGame()
@@ -42,32 +42,32 @@ namespace Blackjack
 
         private void PlayerTurn()
         {
-            Output.DisplayHand(Player);
+            Message.DisplayHand(Player);
             while (Player.GetScore() < HighestScore)
             {
-                Output.PresentChoice();
+                Message.PresentChoice();
                 Choice choice = ReceiveChoice();
                 if (choice == Choice.Hit)
                 {
                     Player.Hit(Deck);
                 }
                 if (choice == Choice.Stay) break;
-                Output.DisplayDraw(Player);
+                Message.DisplayDraw(Player);
                 if (Player.CheckBust()) return;
-                Output.DisplayHand(Player);
+                Message.DisplayHand(Player);
             }
         }
 
         private void DealerTurn()
         {
-            Output.DisplayHand(Dealer);
+            Message.DisplayHand(Dealer);
             while (DealerShouldHit())
             {
                 Thread.Sleep(DealerHitDelay);
                 Dealer.Hit(Deck);
-                Output.DisplayDraw(Dealer);
+                Message.DisplayDraw(Dealer);
                 if (Dealer.CheckBust()) return;
-                Output.DisplayHand(Dealer);
+                Message.DisplayHand(Dealer);
             }
         }
         
@@ -78,7 +78,7 @@ namespace Blackjack
             {
                 input = Input.ReadLine();
                 if (input == "0" || input == "1") break;
-                Output.IncorrectInput();
+                Message.IncorrectInput();
             }
             return input == "1" ? Choice.Hit : Choice.Stay;
         }
