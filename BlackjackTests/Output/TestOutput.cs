@@ -1,7 +1,6 @@
-using System;
-using Blackjack;
+using Blackjack.Output;
 
-namespace BlackjackTests
+namespace BlackjackTests.Output
 {
     public class TestOutput : IOutput
     {

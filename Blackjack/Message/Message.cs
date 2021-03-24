@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Blackjack.Output;
 
-namespace Blackjack
+namespace Blackjack.Message
 {
     public class Message
     {
@@ -9,25 +10,25 @@ namespace Blackjack
         {
             _output = output;
         }
-        public void DisplayHand(Participant participant)
+        public void DisplayHand(Participant.Participant participant)
         {
             int score = participant.GetScore();
-            List<Card> hand = participant.Hand;
+            List<Card.Card> hand = participant.Hand;
             string prefix = participant.Role == Role.Player ? "You are" : "The Dealer is";
             
             _output.WriteLine();
             _output.WriteLine($"{prefix} currently at {score}");
             _output.Write("with the hand ");
-            foreach (Card card in hand)
+            foreach (Card.Card card in hand)
             {
                 _output.Write($"[{card.Value} of {card.Suit}] ");
             }
             _output.WriteLine();
         }
 
-        public void DisplayDraw(Participant participant)
+        public void DisplayDraw(Participant.Participant participant)
         {
-            Card newCard = participant.Hand[^1];
+            Card.Card newCard = participant.Hand[^1];
             _output.WriteLine("=============================");
             _output.WriteLine(participant.Role == Role.Player
                 ? $"You draw [{newCard.Value} of {newCard.Suit}]"

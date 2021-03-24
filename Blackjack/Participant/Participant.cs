@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-namespace Blackjack
+namespace Blackjack.Participant
 {
     public class Participant
     {
@@ -13,14 +13,14 @@ namespace Blackjack
         private const int HighestScore = 21;
         private const int AceHighLowDifference = 10;
         public Role Role { get; }
-        public List<Card> Hand { get; } = new();
+        public List<Card.Card> Hand { get; } = new();
         public bool IsBust { get; private set; }
         
-        public void Hit(Deck deck, int cards = 1)
+        public void Hit(Deck.Deck deck, int cards = 1)
         {
             for (int i = 0; i < cards; i++)
             {
-                Card newCard = deck.Draw();
+                Card.Card newCard = deck.Draw();
                 Hand.Add(newCard);
             }
         }
@@ -29,7 +29,7 @@ namespace Blackjack
         {
             int score = 0;
             int aceCount = 0;
-            foreach (Card card in Hand)
+            foreach (Card.Card card in Hand)
             {
                 score += card.GetCardValue();
                 if (card.Value == Value.Ace) aceCount++;

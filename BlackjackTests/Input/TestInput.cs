@@ -1,7 +1,7 @@
-
 using System.Collections.Generic;
+using Blackjack.Input;
 
-namespace Blackjack
+namespace BlackjackTests.Input
 {
     public class TestInput : IInput
     {

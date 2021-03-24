@@ -1,4 +1,4 @@
-namespace Blackjack
+namespace Blackjack.Output
 {
     public interface IOutput
     {

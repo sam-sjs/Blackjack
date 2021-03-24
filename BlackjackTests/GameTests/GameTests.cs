@@ -1,9 +1,16 @@
-using System;
 using System.Collections.Generic;
 using Blackjack;
+using Blackjack.Card;
+using Blackjack.Deck;
+using Blackjack.Game;
+using Blackjack.Input;
+using Blackjack.Message;
+using Blackjack.Output;
+using Blackjack.Participant;
+using BlackjackTests.Input;
 using Xunit;
 
-namespace BlackjackTests
+namespace BlackjackTests.GameTests
 {
     public class GameTests
     {

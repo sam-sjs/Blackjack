@@ -1,7 +1,9 @@
 using Blackjack;
+using Blackjack.Card;
+using Blackjack.Deck;
 using Xunit;
 
-namespace BlackjackTests
+namespace BlackjackTests.DeckTests
 {
     public class DeckTests
     {

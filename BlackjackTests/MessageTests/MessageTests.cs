@@ -1,7 +1,8 @@
-using Blackjack;
+using Blackjack.Message;
+using BlackjackTests.Output;
 using Xunit;
 
-namespace BlackjackTests
+namespace BlackjackTests.MessageTests
 {
     public class MessageTests
     {

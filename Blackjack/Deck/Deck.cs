@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 
-namespace Blackjack
+namespace Blackjack.Deck
 {
     public class Deck
     {
         private int _nextDraw;
-        public Card[] StandardDeck { get; private set; } = 
+        public Card.Card[] StandardDeck { get; private set; } = 
         {
             new(Value.Two, Suit.Hearts), new(Value.Three, Suit.Hearts), new(Value.Four, Suit.Hearts),
             new(Value.Five, Suit.Hearts), new(Value.Six, Suit.Hearts), new(Value.Seven, Suit.Hearts),
@@ -35,7 +35,7 @@ namespace Blackjack
             StandardDeck = StandardDeck.OrderBy(_ => randomiser.Next()).ToArray();
         }
 
-        public Card Draw()
+        public Card.Card Draw()
         {
             _nextDraw++;
             return StandardDeck[_nextDraw - 1];

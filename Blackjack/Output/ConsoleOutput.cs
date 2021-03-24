@@ -1,6 +1,6 @@
 using System;
 
-namespace Blackjack
+namespace Blackjack.Output
 {
     public class ConsoleOutput : IOutput
     {

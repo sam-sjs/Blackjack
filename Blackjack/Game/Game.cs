@@ -1,11 +1,11 @@
-
 using System.Threading;
+using Blackjack.Input;
 
-namespace Blackjack
+namespace Blackjack.Game
 {
     public class Game
     {
-        public Game(Participant player, Participant dealer, Deck deck, IInput input, Message message)
+        public Game(Participant.Participant player, Participant.Participant dealer, Deck.Deck deck, IInput input, Message.Message message)
         {
             Player = player;
             Dealer = dealer;
@@ -18,11 +18,11 @@ namespace Blackjack
         private const int HighestScore = 21;
         private const int DealerHitMinimum = 17;
         private const int DealerHitDelay = 1500;
-        public Participant Player { get; }
-        public Participant Dealer { get; }
-        public Deck Deck { get; }
+        public Participant.Participant Player { get; }
+        public Participant.Participant Dealer { get; }
+        public Deck.Deck Deck { get; }
         public IInput Input { get; }
-        public Message Message { get; }
+        public Message.Message Message { get; }
 
         public void PlayGame()
         {

@@ -1,4 +1,4 @@
-namespace Blackjack
+namespace Blackjack.Input
 {
     public interface IInput
     {

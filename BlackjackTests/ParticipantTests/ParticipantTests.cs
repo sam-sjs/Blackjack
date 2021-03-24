@@ -1,7 +1,10 @@
 using Blackjack;
+using Blackjack.Card;
+using Blackjack.Deck;
+using Blackjack.Participant;
 using Xunit;
 
-namespace BlackjackTests
+namespace BlackjackTests.ParticipantTests
 {
     public class ParticipantTests
     {

@@ -1,5 +1,5 @@
 
-namespace Blackjack
+namespace Blackjack.Card
 {
     public class Card
     {
