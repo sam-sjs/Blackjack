@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Blackjack;
 using Xunit;
@@ -79,55 +80,28 @@ namespace BlackjackTests
             Assert.Equal(Choice.Hit, actual);
         }
 
-        [Fact]
-        public void WhenInputIs0_ThenChoiceShouldBeStay()
+        public static IEnumerable<object[]> GetInputs()
         {
-            Participant defaultPlayer = new(Role.Player);
-            Participant defaultDealer = new(Role.Dealer);
-            Deck defaultDeck = new();
-            List<string> inputs = new List<string> {"0"};
-            TestInput testInput = new(inputs);
-            ConsoleOutput defalutOutput = new();
-            Message defaultMessage = new(defalutOutput);
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
-
-            Choice actual = newGame.ReceiveChoice();
-
-            Assert.Equal(Choice.Stay, actual);
+            yield return new object[] {new List<string> {"0"}, Choice.Stay};
+            yield return new object[] {new List<string> {"Q", "1"}, Choice.Hit};
+            yield return new object[] {new List<string> {"Q", "8", "1"}, Choice.Hit};
         }
 
-        [Fact]
-        public void WhenInputIsInvalid_ThenShouldAskForNewInput()
+        [Theory]
+        [MemberData(nameof(GetInputs))]
+        public void GivenReceiveChoice_ShouldAwaitValidInput(List<string> inputs, Choice expected)
         {
             Participant defaultPlayer = new(Role.Player);
             Participant defaultDealer = new(Role.Dealer);
             Deck defaultDeck = new();
-            List<string> inputs = new List<string> {"Q", "1"};
             TestInput testInput = new(inputs);
             ConsoleOutput defalutOutput = new();
             Message defaultMessage = new(defalutOutput);
             Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
-            
+
             Choice actual = newGame.ReceiveChoice();
 
-            Assert.Equal(Choice.Hit, actual);
-        }
-        
-        [Fact]
-        public void WhenInputIsInvalidInvalid_ThenShouldAskForNewInput()
-        {
-            Participant defaultPlayer = new(Role.Player);
-            Participant defaultDealer = new(Role.Dealer);
-            Deck defaultDeck = new();
-            List<string> inputs = new List<string> {"Q", "8", "1"};
-            TestInput testInput = new(inputs);
-            ConsoleOutput defalutOutput = new();
-            Message defaultMessage = new(defalutOutput);
-            Game newGame = new Game(defaultPlayer, defaultDealer, defaultDeck, testInput, defaultMessage);
-            
-            Choice actual = newGame.ReceiveChoice();
-
-            Assert.Equal(Choice.Hit, actual);
+            Assert.Equal(expected, actual);
         }
     }
 }
